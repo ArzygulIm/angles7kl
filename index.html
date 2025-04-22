@@ -81,7 +81,23 @@
 
         <div class="slide" id="slide4">
           <div class="flex">
-            <div></div>
+            <div>
+              <img src="./картинки/acuteangleicon.png" alt="" />
+            </div>
+            <div>
+              <img src="./картинки/acuteangleicon.png" alt="" />
+            </div>
+            <div>
+              <img src="./картинки/acuteangleicon.png" alt="" />
+            </div>
+            <div>
+              <img src="./картинки/acuteangleicon.png" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <div class="slide" id="slide5">
+          <div class="flex flex-jcsb">
             <div></div>
             <div></div>
             <div></div>
@@ -93,11 +109,29 @@
           </div>
         </div>
 
-
+        <div class="slide" id="slide6">
+          <div class="flex flex-jcsb">
+            <div></div>
+            <div></div>
+          </div>
+        </div>
       </div>
 
       <button class="start" onclick="nextSlide()">Погнали!</button>
+
+      <div class="secret-zone" onclick="secretClick()"></div>
+
+      <h1 onclick="secretClick()">🎲 Крути барабан!</h1>
+
+      <div id="roller">
+        <div id="nameList"></div>
+      </div>
+
+      <button onclick="startRoll()">Запустить</button>
+      <div id="result"></div>
     </div>
+
+    <canvas id="myCanvas" width="600" height="400"></canvas>
 
     <script>
       const slides = document.querySelectorAll(".slide");
@@ -113,6 +147,190 @@
           slides[current].classList.add("active");
         }, 600); // Время должно совпадать с CSS transition
       }
+
+      const students = [
+        "Дарика",
+        "Сумая",
+        "Арлен",
+        "Сыймык",
+        "Байэл",
+        "Альбина",
+        "Алтынбек",
+        "Мариям",
+        "Амир",
+        "Адиль",
+        "Нарыйа",
+        "Айдар",
+        "Арген",
+        "Ильгиз",
+      ];
+      const orderedList = [
+        "Сумая",
+        "Ильгиз",
+        "Сыймык",
+        "Алтынбек",
+        "Камила",
+        "Альбина",
+        "Нарыйа",
+        "Байэл",
+        "Нурдаулет",
+      ];
+      let secretMode = false;
+      let clickCount = 0;
+      let clickTimer = null;
+      let currentIndex = 0;
+
+      function secretClick() {
+        clickCount++;
+        if (clickCount === 5) {
+          secretMode = true;
+          alert("✅ Режим учителя активирован");
+          clickCount = 0;
+        }
+        clearTimeout(clickTimer);
+        clickTimer = setTimeout(() => (clickCount = 0), 1500);
+      }
+
+      function startRoll() {
+        const nameList = document.getElementById("nameList");
+        nameList.innerHTML = "";
+        nameList.style.transition = "none";
+        nameList.style.top = "0px";
+
+        let result;
+
+        if (secretMode) {
+          result = orderedList[currentIndex];
+          currentIndex = (currentIndex + 1) % orderedList.length;
+        } else {
+          result = students[Math.floor(Math.random() * students.length)];
+        }
+
+        // Создаём список имён (10 случайных + выбранный в конце)
+        const animationNames = [];
+        for (let i = 0; i < 10; i++) {
+          const rand = students[Math.floor(Math.random() * students.length)];
+          animationNames.push(rand);
+        }
+        animationNames.push(result); // добавляем нужное имя последним
+
+        animationNames.forEach((name) => {
+          const div = document.createElement("div");
+          div.className = "name";
+          div.textContent = name;
+          nameList.appendChild(div);
+        });
+
+        // Анимируем прокрутку вниз
+        const height = 50; // высота одного блока
+        const offset = (animationNames.length - 1) * height;
+
+        void nameList.offsetWidth; // перезапуск стиля
+        nameList.style.transition = "top 3s ease-out";
+        nameList.style.position = "relative";
+        nameList.style.top = `-${offset}px`;
+        console.log(secretMode, result);
+
+        setTimeout(() => {
+          document.getElementById(
+            "result"
+          ).textContent = `✅ Выбран: ${result}`;
+        }, 3000);
+      }
+
+      const canvasDraw = document.getElementById("myCanvas");
+      const ctxDraw = canvasDraw.getContext("2d");
+
+      let points = [];
+
+      canvasDraw.addEventListener("click", function (e) {
+        const rect = canvasDraw.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        points.push({ x, y });
+
+        draw();
+      });
+
+      function drawPoint(p, color = "black") {
+        ctxDraw.fillStyle = color;
+        ctxDraw.beginPath();
+        ctxDraw.arc(p.x, p.y, 5, 0, Math.PI * 2);
+        ctxDraw.fill();
+      }
+
+      function drawLine2(p1, p2, color = "black") {
+        console.log("Точки внутри drawLine:", p1, p2);
+        if (!p1 || !p2) {
+          console.error("❌ Invalid points for line:", p1, p2);
+          return;
+        }
+        ctxDraw.strokeStyle = color;
+        ctxDraw.lineWidth = 5;
+        ctxDraw.beginPath();
+        ctxDraw.moveTo(Math.round(p1.x), Math.round(p1.y));
+        ctxDraw.lineTo(Math.round(p2.x), Math.round(p2.y));
+        ctxDraw.stroke();
+      }
+
+      function drawAngle2(p1, p2, p3, color1 = "black", color2 = "black") {
+        if (!p1 || !p2 || !p3) {
+          console.error("❌ Invalid points for angle:", p1, p2, p3);
+          return;
+        }
+        drawLine2(p1, p2, color1);
+        drawLine2(p2, p3, color2);
+
+        drawAngleArc(points[0], points[1], points[2]); // Дуга угла
+      }
+
+      function draw() {
+        ctxDraw.clearRect(0, 0, canvasDraw.width, canvasDraw.height);
+
+        if (points.length > 3) {
+          points = [];
+        }
+        points.forEach((p) => drawPoint(p));
+
+        if (points.length === 2) {
+          console.log("Вызвана функция drawLine");
+          drawLine2(points[0], points[1]);
+        }
+
+        if (points.length === 3) {
+          drawAngle2(points[0], points[1], points[2]);
+        }
+      }
+
+      function drawAngleArc(A, B, C, radius = 100, color = "green") {
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        // Вектора BA и BC
+        const v1 = { x: A.x - B.x, y: A.y - B.y };
+        const v2 = { x: C.x - B.x, y: C.y - B.y };
+
+        // Углы относительно горизонтали
+        const angle1 = Math.atan2(v1.y, v1.x);
+        const angle2 = Math.atan2(v2.y, v2.x);
+
+        // Разница между углами (0...2PI)
+        let delta = angle2 - angle1;
+        if (delta < 0) delta += 2 * Math.PI;
+
+        // Определяем направление по наименьшей дуге
+        const anticlockwise = delta > Math.PI;
+
+        ctx.beginPath();
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+
+        ctx.arc(B.x, B.y, radius, angle1, angle2, anticlockwise);
+        ctx.stroke();
+      }
+
+      // Пример изначальной отрисовки можно убрать, так как теперь все управляется кликами
+      // drawLine({ x: 50, y: 50 }, { x: 200, y: 200 }, "green");
     </script>
 
     <script src="./script.js"></script>
