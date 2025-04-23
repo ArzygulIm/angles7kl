@@ -17,7 +17,7 @@ body {
   border-radius: 8px;
   overflow: hidden;
   width: 90vw;
-  height: 90vh;
+  height: 70vh;
 }
 
 .animate-box::before {
