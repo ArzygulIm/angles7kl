@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./button.css" />
   </head>
   <body>
     <div class="container">
@@ -124,7 +125,9 @@
               <div id="result"></div>
             </div>
           </div>
-          <button class="start" onclick="nextSlide()">Погнали!</button>
+          <button class="start" onclick="nextSlide()">
+            <span>Погнали!</span>
+          </button>
         </div>
       </div>
     </div>
@@ -133,9 +136,9 @@
       const slides = document.querySelectorAll(".slide");
       let current = 0;
 
-      if(current===0){
-        document.querySelector(".choose-student").style.display = "none";
-      }
+      // if (current === 0) {
+      //   document.querySelector(".choose-student").style.display = "none";
+      // }
 
       function nextSlide() {
         const currentSlide = slides[current];

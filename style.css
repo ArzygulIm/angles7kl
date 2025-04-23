@@ -226,4 +226,52 @@ canvas {
 }
 
 #slide1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+#slide1 h1 {
+  font-size: 70px;
+  text-align: center;
+}
+
+#slide1 div,
+p,
+li {
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .select-world__wrap {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  canvas {
+    width: 90vw;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  canvas {
+    width: 95vw;
+    height: auto;
+  }
+
+  .razdel__box img {
+    width: 100%;
+    height: auto;
+  }
+
+  .flex-jcsb {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .razdel__box {
+    width: 90%;
+    margin-bottom: 20px;
+  }
 }
