@@ -242,6 +242,64 @@ li {
   font-size: 20px;
 }
 
+#slide2 h5 {
+  font-size: 50px;
+  text-align: center;
+}
+
+.razdel__box {
+  font-size: 20px;
+  position: relative;
+  height: 250px;
+  border: 5px solid #000;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.razdel__box div {
+  background: rgba(255, 255, 255, 0.1); /* полупрозрачный фон */
+  border-radius: 16px;
+  /* padding: 20px; */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px); /* эффект размытия фона */
+  -webkit-backdrop-filter: blur(10px); /* поддержка Safari */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* тень */
+  color: white;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  bottom: 80%;
+
+}
+.razdel__box img {
+  width: 90%;
+  height: auto;
+  border-radius: 8px;
+  opacity: 0.5;
+}
+
+.razdel__box h6 {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 30px;
+  width: 60%;
+}
+
+.razdel__box p {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 20px;
+  width: 80%;
+}
+
 @media (max-width: 768px) {
   .select-world__wrap {
     flex-direction: column;
