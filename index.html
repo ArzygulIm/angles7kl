@@ -148,6 +148,10 @@
         const currentSlide = slides[current];
         currentSlide.classList.add("exit");
 
+        if(current === 1) {
+          document.querySelector(".start").style.display = "none";
+        }
+
         setTimeout(() => {
           currentSlide.classList.remove("active", "exit");
           current = (current + 1) % slides.length;
