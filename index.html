@@ -136,9 +136,9 @@
       const slides = document.querySelectorAll(".slide");
       let current = 0;
 
-      // if (current === 0) {
-      //   document.querySelector(".choose-student").style.display = "none";
-      // }
+      if (current === 0) {
+        document.querySelector(".choose-student").style.display = "none";
+      }
 
       function nextSlide() {
         const currentSlide = slides[current];
