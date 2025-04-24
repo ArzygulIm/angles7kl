@@ -160,27 +160,57 @@
                   </p>
                 </div>
               </div>
+            </div>
 
-              <div class="slide" id="slide7" style="background-color: red;">
-                <div class="flex flex-fdc">
-                  <img src="./картинки/paralelnye.png" alt="" />
-                  <div class="flex">
-                    <div>
-                      <p>Накрест лежачие углы</p>
-                      <p></p>
-                    </div>
-                    <div>
-                      <p>Одностронние углы</p>
-                      <p></p>
-                    </div>
-                    <div>
-                      <p>Соответственные углы</p>
-                      <p></p>
-                    </div>
+            <div class="slide" id="slide7">
+              <div class="flex">
+                <img
+                  src="./картинки/paralelnye.png"
+                  alt=""
+                  style="margin-left: 250px"
+                />
+                <div id="angle-sequence">
+                  <div class="angle-step" id="angle1">
+                    <p><strong>Накрест лежачие углы</strong></p>
+                    <p>
+                      Накрест лежащие углы — это два угла во внутренней области
+                      параллельных прямых и на разных сторонах секущей
+                    </p>
+                  </div>
+
+                  <div class="angle-step hidden" id="angle2">
+                    <p><strong>Одностронние углы</strong></p>
+                    <p>
+                      Односторонние углы лежат по одну сторону от всей секущей
+                      внутри параллельных прямых
+                    </p>
+                  </div>
+
+                  <div class="angle-step hidden" id="angle3">
+                    <p><strong>Соответственные углы</strong></p>
+                    <p>
+                      Соответственные углы – это два угла, один во внешней
+                      области, один во внутренней области, и которые лежат на
+                      одной стороне секущей
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
+
+            <div class="slide" id="slide8">
+              <div class="video-container">
+                <video autoplay muted loop controls>
+                  <source
+                    src="./видео/суммаугловтреугольника.mp4"
+                    type="video/mp4"
+                  />
+                  Ваш браузер не поддерживает воспроизведение видео.
+                </video>
+              </div>
+            </div>
+
+            <div class="slide" id="slide9"></div>
 
             <div class="choose-student">
               <div class="secret-zone" onclick="secretClick()"></div>
@@ -222,7 +252,6 @@
         currentSlide.classList.add("exit");
         console.log("Переход на слайд:", current);
 
-        
         if (current === 0) {
           document.querySelector(".start").style.display = "none";
         }
@@ -241,30 +270,88 @@
           document.querySelector(".choose-student").style.display = "block";
         }
 
+        if (current === 5) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>В мир многоугольников!</span>`;
+          document.querySelector(".choose-student").style.display = "block";
+        }
+
         if (current === 3) {
           clearCanvas(); // очищаем canvas при переходе с 4-го слайда
           removeCanvasClick();
         }
+        if (current === 6) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>На страну прямоугольных треугольников!</span>`;
+          document.querySelector(".choose-student").style.display = "none";
+        }
+        if (current === 7) {
+          window.location.href = "questions.html";
+        }
 
+        // Обновляем current перед переключением слайда
         setTimeout(() => {
           currentSlide.classList.remove("active", "exit");
           current = (current + 1) % slides.length;
+          slides.forEach((el) => {
+            el.classList.remove("active", "exit");
+          });
           slides[current].classList.add("active");
         }, 600); // Время должно совпадать с CSS transition
       }
 
-      function goToSlide(num, current) {
+      function goToSlide(num) {
         const currentSlide = slides[current];
         currentSlide.classList.add("exit");
 
-        if(num==3 ||num==4||num==5){
+        if (num === 3 || num === 4 || num === 5) {
           document.querySelector(".choose-student").style.display = "block";
         }
+
+        if (num === 4) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>На мир прямых!</span>`;
+          document.querySelector(".choose-student").style.display = "block";
+        }
+        if (num === 5) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>Го на страну паралельных прямых!</span>`;
+          document.querySelector(".choose-student").style.display = "block";
+        }
+        if (num == 6) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>В мир многоугольников!</span>`;
+          document.querySelector(".choose-student").style.display = "block";
+        }
+        if (num == 7) {
+          document.querySelector(".start").style.display = "block";
+          document.querySelector(
+            ".start"
+          ).innerHTML = `<span>На страну прямоугольных треугольников!</span>`;
+          document.querySelector(".choose-student").style.display = "block";
+        }
+
+        // Обновляем current перед переключением слайда
         setTimeout(() => {
           currentSlide.classList.remove("active", "exit");
-          slides[num].classList.add("active");
+          slides.forEach((el) => {
+            el.classList.remove("active", "exit");
+          });
+          current = num;
+          slides[current].classList.add("active");
         }, 600);
       }
+
       const students = [
         "Дарика",
         "Сумая",
@@ -284,8 +371,8 @@
       const orderedList = [
         "Сумая",
         "Ильгиз",
-        "Сыймык",
-        "Алтынбек",
+        "Дарика",
+        "Актан",
         "Камила",
         "Альбина",
         "Нарыйа",

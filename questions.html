@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Углы в прямоугольном треугольнике — Вопросы</title>
+  <link rel="stylesheet" href="./questin.css">
+</head>
+<body>
+
+  <h1>Найди угол в прямоугольном треугольнике</h1>
+
+  <div class="question" onclick="scrollToAnswer('a1')">
+    1. В прямоугольном треугольнике один из острых углов равен 35°. Найдите другой острый угол.
+  </div>
+
+  <div class="question" onclick="scrollToAnswer('a2')">
+    2. В прямоугольном треугольнике один острый угол в два раза больше другого. Найдите величины этих углов.
+  </div>
+
+  <div class="question" onclick="scrollToAnswer('a3')">
+    3. В прямоугольном треугольнике острые углы относятся как 3:2. Найдите их градусные меры.
+  </div>
+
+  <div id="a1" class="answer">
+    <h2>Ответ 1</h2>
+    <p>Сумма острых углов в прямоугольном треугольнике равна 90° (так как один угол прямой — 90°).</p>
+    <p>Если один угол 35°, то другой: 90° − 35° = <strong>55°</strong>.</p>
+  </div>
+
+  <div id="a2" class="answer">
+    <h2>Ответ 2</h2>
+    <p>Пусть меньший угол — x, тогда больший угол — 2x. Сумма острых углов: x + 2x = 90°.</p>
+    <p>3x = 90° ⇒ x = 30°.</p>
+    <p>Ответ: углы <strong>30° и 60°</strong>.</p>
+  </div>
+
+  <div id="a3" class="answer">
+    <h2>Ответ 3</h2>
+    <p>Пусть углы равны 3x и 2x. Тогда 3x + 2x = 90°.</p>
+    <p>5x = 90° ⇒ x = 18°.</p>
+    <p>Ответ: углы <strong>54° и 36°</strong>.</p>
+  </div>
+
+  <a href="./reaction.html">Спасибо за урок!</a>
+
+  <script>
+    function scrollToAnswer(id) {
+        document.getElementById(id).classList.add('show')
+      document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+      
+    }
+  </script>
+
+</body>
+</html>

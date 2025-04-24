@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Оценка урока — 20 учеников</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .students-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .student-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .options label {
+      display: block;
+      margin: 6px 0;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .options input[type="radio"] {
+      margin-right: 6px;
+    }
+
+    .circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 10px auto 0;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Как вам наш сегодняшний урок?</h1>
+
+  <div class="students-grid">
+    <!-- 20 карточек без имён -->
+    <script>
+      for (let i = 1; i <= 20; i++) {
+        document.write(`
+          <div class="student-card">
+            <div class="options">
+              <label><input type="radio" name="student${i}" value="bad"> Плохо</label>
+              <label><input type="radio" name="student${i}" value="average"> Средне</label>
+              <label><input type="radio" name="student${i}" value="good"> Хорошо</label>
+            </div>
+            <div class="circle" id="circle${i}"></div>
+          </div>
+        `);
+      }
+    </script>
+  </div>
+
+  <script>
+    for (let i = 1; i <= 20; i++) {
+      const radios = document.getElementsByName(`student${i}`);
+      const circle = document.getElementById(`circle${i}`);
+      radios.forEach(radio => {
+        radio.addEventListener("change", () => {
+          circle.style.display = "block";
+          if (radio.value === "bad") {
+            circle.style.backgroundColor = "#e74c3c";
+          } else if (radio.value === "average") {
+            circle.style.backgroundColor = "#f1c40f";
+          } else if (radio.value === "good") {
+            circle.style.backgroundColor = "#2ecc71";
+          }
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

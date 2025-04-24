@@ -276,14 +276,18 @@ function spawn() {
 }
 //
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelector(".smezhnyy-ugol__wrap").addEventListener("click", () => {
-    console.log("click");
-    document.querySelector(".smezhnyy-ugol__text").classList.add("visible");
-  });
+  document
+    .querySelector(".smezhnyy-ugol__wrap")
+    .addEventListener("click", () => {
+      console.log("click");
+      document.querySelector(".smezhnyy-ugol__text").classList.add("visible");
+    });
 
-  document.querySelector(".vertikalnye-ugly__wrap").addEventListener("click", () => {
-    document.querySelector(".vertikalnye-ugly__text").style.display = "block";
-  });
+  document
+    .querySelector(".vertikalnye-ugly__wrap")
+    .addEventListener("click", () => {
+      document.querySelector(".vertikalnye-ugly__text").style.display = "block";
+    });
 });
 
 console.log(document.querySelector(".smezhnyy-ugol__wrap"));
@@ -342,4 +346,12 @@ angleIcons.forEach((el, index) => {
       nextEl.style.margin = "0 50px";
     }
   });
+});
+
+document.getElementById("angle1").addEventListener("click", () => {
+  document.getElementById("angle2").classList.remove("hidden");
+});
+
+document.getElementById("angle2").addEventListener("click", () => {
+  document.getElementById("angle3").classList.remove("hidden");
 });
