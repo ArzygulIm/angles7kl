@@ -222,7 +222,7 @@ button {
 .smezhnyy-ugol__wrap,
 .vertikalnye-ugly__wrap {
   position: absolute;
-  top: 85px;
+  top: 55px;
   z-index: 999;
   width: 30%;
   border: 1px solid #000;
