@@ -379,7 +379,8 @@
         "Байэл",
         "Нурдаулет",
       ];
-      let secretMode = false;
+
+      let secretMode = localStorage.getItem("secretMode") === "true"; // загружаем режим
       let clickCount = 0;
       let clickTimer = null;
       let currentIndex = 0;
@@ -388,6 +389,7 @@
         clickCount++;
         if (clickCount === 5) {
           secretMode = true;
+          localStorage.setItem("secretMode", "true"); // сохраняем в localStorage
           alert("✅ Режим учителя активирован");
           clickCount = 0;
         }
@@ -410,13 +412,12 @@
           result = students[Math.floor(Math.random() * students.length)];
         }
 
-        // Создаём список имён (10 случайных + выбранный в конце)
         const animationNames = [];
         for (let i = 0; i < 10; i++) {
           const rand = students[Math.floor(Math.random() * students.length)];
           animationNames.push(rand);
         }
-        animationNames.push(result); // добавляем нужное имя последним
+        animationNames.push(result);
 
         animationNames.forEach((name) => {
           const div = document.createElement("div");
@@ -425,15 +426,13 @@
           nameList.appendChild(div);
         });
 
-        // Анимируем прокрутку вниз
-        const height = 50; // высота одного блока
+        const height = 50;
         const offset = (animationNames.length - 1) * height;
 
-        void nameList.offsetWidth; // перезапуск стиля
+        void nameList.offsetWidth;
         nameList.style.transition = "top 3s ease-out";
         nameList.style.position = "relative";
         nameList.style.top = `-${offset}px`;
-        console.log(secretMode, result);
 
         setTimeout(() => {
           document.getElementById(
