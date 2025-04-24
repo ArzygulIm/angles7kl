@@ -157,9 +157,17 @@ body {
 
 .slide.active {
   opacity: 1;
-  z-index: 1;
+  z-index: 100;
 }
 
+.visible {
+  display: block !important;
+}
+
+.select-world {
+  width: 300px;
+  height: 300px;
+}
 .slide.exit {
   transform: scale(2);
   opacity: 0;
@@ -186,7 +194,7 @@ body {
 #roller {
   height: 50px;
   width: 200px;
-  margin: 20px auto;
+  margin: 20px 0;
   overflow: hidden;
   border: 2px solid #ccc;
   border-radius: 8px;
@@ -194,6 +202,10 @@ body {
 }
 #nameList {
   position: relative;
+}
+
+.flex-fdc{
+  flex-direction: column;
 }
 .name {
   height: 50px;
@@ -205,7 +217,29 @@ button {
   padding: 10px 20px;
   font-size: 16px;
   margin-top: 20px;
+  border-radius: 5px;
 }
+.smezhnyy-ugol__wrap, .vertikalnye-ugly__wrap {
+  width: 35%;
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer; /* Чтобы указатель менялся на пальчик при наведении */
+}
+
+.smezhnyy-ugol__wrap {
+  margin-left: 250px;
+}
+
+.smezhnyy-ugol__text, .vertikalnye-ugly__text {
+  display: none; /* Изначально текст скрыт */
+  font-size: 12px;
+}
+
+.visible {
+  display: block; /* Класс для отображения текста */
+}
+
 #result {
   margin-top: 20px;
   font-weight: bold;
@@ -213,9 +247,7 @@ button {
 }
 
 canvas {
-  border: 1px solid black;
   display: block;
-  margin: 20px auto;
 }
 
 .choose-student {
@@ -247,15 +279,97 @@ li {
   text-align: center;
 }
 
+.slide4__wrap {
+  position: relative;
+}
+
+.transportir__wrap {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  /* width: 50px; */
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.transportir__wrap img {
+  width: 50px;
+  height: 50px;
+}
+
+.transportir__wrap span {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap; /* Не переносит текст */
+  opacity: 0;
+  transition: width 0.5s ease, opacity 0.3s ease;
+  font-size: 20px;
+}
+
+.transportir__wrap.show span {
+  width: 100%;
+  opacity: 1;
+}
+
+.up-arrow__wrap {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 50px;
+  height: 50px;
+}
+#slide5 img {
+  height: 150px;
+  object-fit: contain;
+}
+
+#slide5 {
+}
+
+.angleIcon__wrap:first-child{
+  scale: 1.5;
+  background-color: #06fa0e;
+}
+.choose-student h1{
+  font-size: 25px
+}
+.angleIcon__wrap{
+  width: 150px;
+  border: 1px solid black;
+  border-radius: 5px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.angleIcon__wrap img{
+  width: 90%;
+  object-fit: contain;
+  /* margin: 0 auto; */
+}
+
+.up-arrow__wrap img {
+  width: 100%;
+  height: 100%;
+}
+.razdel__wrap {
+  gap: 20px;
+}
+
 .razdel__box {
   font-size: 20px;
   position: relative;
   height: 250px;
-  border: 5px solid #000;
+  border: 3px solid #000;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 10px;
 }
 
 .razdel__box div {
@@ -269,9 +383,8 @@ li {
   color: white;
   position: relative;
   width: 100%;
-  height: 100%;
-  bottom: 80%;
-
+  height: 250px;
+  bottom: 250px;
 }
 .razdel__box img {
   width: 90%;
@@ -282,17 +395,17 @@ li {
 
 .razdel__box h6 {
   position: absolute;
-  top: 30%;
+  top: -10px;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;
   font-size: 30px;
-  width: 60%;
+  width: 80%;
 }
 
 .razdel__box p {
   position: absolute;
-  top: 60%;
+  top: 90px;
   left: 50%;
   transform: translate(-50%, -50%);
   color: #000;

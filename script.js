@@ -10,7 +10,8 @@ let currentPolygon = generatePolygonData();
 function generatePolygonData() {
   const minSides = 3;
   const maxSides = 10;
-  const sides = Math.floor(Math.random() * (maxSides - minSides + 1)) + minSides;
+  const sides =
+    Math.floor(Math.random() * (maxSides - minSides + 1)) + minSides;
   const angleStep = (2 * Math.PI) / sides;
   const centerX = canvas1.width / 2;
   const centerY = canvas1.height / 2;
@@ -170,23 +171,23 @@ function drawLine(x1, y1, x2, y2, color = "blue", opacity = 1) {
   ctx.stroke();
 }
 
-function drawCross(centerX, centerY, angle1, angle2, length, opacity = 1) {
-  const dx1 = (Math.cos(angle1) * length) / 2;
-  const dy1 = (Math.sin(angle1) * length) / 2;
-  const x1 = centerX - dx1;
-  const y1 = centerY - dy1;
-  const x2 = centerX + dx1;
-  const y2 = centerY + dy1;
-  drawLine(x1, y1, x2, y2, "blue", opacity);
+// function drawCross(centerX, centerY, angle1, angle2, length, opacity = 1) {
+//   const dx1 = (Math.cos(angle1) * length) / 2;
+//   const dy1 = (Math.sin(angle1) * length) / 2;
+//   const x1 = centerX - dx1;
+//   const y1 = centerY - dy1;
+//   const x2 = centerX + dx1;
+//   const y2 = centerY + dy1;
+//   drawLine(x1, y1, x2, y2, "blue", opacity);
 
-  const dx2 = (Math.cos(angle2) * length) / 2;
-  const dy2 = (Math.sin(angle2) * length) / 2;
-  const x3 = centerX - dx2;
-  const y3 = centerY - dy2;
-  const x4 = centerX + dx2;
-  const y4 = centerY + dy2;
-  drawLine(x3, y3, x4, y4, "blue", opacity);
-}
+//   const dx2 = (Math.cos(angle2) * length) / 2;
+//   const dy2 = (Math.sin(angle2) * length) / 2;
+//   const x3 = centerX - dx2;
+//   const y3 = centerY - dy2;
+//   const x4 = centerX + dx2;
+//   const y4 = centerY + dy2;
+//   drawLine(x3, y3, x4, y4, "blue", opacity);
+// }
 
 function drawAngle(x, y, angleDeg, length = 80, opacity = 1) {
   const angleRad = (angleDeg * Math.PI) / 180;
@@ -245,21 +246,21 @@ function getSafeCoordinates(minDistance = 100, maxTries = 100) {
 
 function spawn() {
   if (blueFigures.length === 0 && greenAngles.length === 0) {
-    const blueCoords = getSafeCoordinates(120);
-    if (blueCoords) {
-      const angle1 = Math.random() * Math.PI;
-      let angle2 = Math.random() * Math.PI;
-      while (Math.abs(angle2 - angle1) < Math.PI / 6) {
-        angle2 = Math.random() * Math.PI;
-      }
-      blueFigures.push({
-        x: blueCoords.x,
-        y: blueCoords.y,
-        angle1,
-        angle2,
-        createdAt: Date.now(),
-      });
-    }
+    // const blueCoords = getSafeCoordinates(120);
+    // if (blueCoords) {
+    //   const angle1 = Math.random() * Math.PI;
+    //   let angle2 = Math.random() * Math.PI;
+    //   while (Math.abs(angle2 - angle1) < Math.PI / 6) {
+    //     angle2 = Math.random() * Math.PI;
+    //   }
+    //   blueFigures.push({
+    //     x: blueCoords.x,
+    //     y: blueCoords.y,
+    //     angle1,
+    //     angle2,
+    //     createdAt: Date.now(),
+    //   });
+    // }
 
     const greenCoords = getSafeCoordinates(120);
     if (greenCoords) {
@@ -273,21 +274,33 @@ function spawn() {
     }
   }
 }
+//
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelector(".smezhnyy-ugol__wrap").addEventListener("click", () => {
+    console.log("click");
+    document.querySelector(".smezhnyy-ugol__text").classList.add("visible");
+  });
 
+  document.querySelector(".vertikalnye-ugly__wrap").addEventListener("click", () => {
+    document.querySelector(".vertikalnye-ugly__text").style.display = "block";
+  });
+});
+
+console.log(document.querySelector(".smezhnyy-ugol__wrap"));
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const now = Date.now();
 
-  for (let i = blueFigures.length - 1; i >= 0; i--) {
-    const fig = blueFigures[i];
-    const age = now - fig.createdAt;
-    const opacity = age < 1000 ? age / 1000 : 1 - (age - 4000) / 1000;
-    if (age > lifespan) {
-      blueFigures.splice(i, 1);
-    } else {
-      drawCross(fig.x, fig.y, fig.angle1, fig.angle2, length, opacity);
-    }
-  }
+  // for (let i = blueFigures.length - 1; i >= 0; i--) {
+  //   const fig = blueFigures[i];
+  //   const age = now - fig.createdAt;
+  //   const opacity = age < 1000 ? age / 1000 : 1 - (age - 4000) / 1000;
+  //   if (age > lifespan) {
+  //     blueFigures.splice(i, 1);
+  //   } else {
+  //     // drawCross(fig.x, fig.y, fig.angle1, fig.angle2, length, opacity);
+  //   }
+  // }
 
   for (let i = greenAngles.length - 1; i >= 0; i--) {
     const angle = greenAngles[i];
@@ -305,3 +318,28 @@ function animate() {
 
 setInterval(spawn, 500);
 animate();
+
+// const angleIcons = document.querySelectorAll(".angleIcon__wrap");
+
+const angleIcons = document.querySelectorAll(".angleIcon__wrap");
+
+angleIcons.forEach((el, index) => {
+  el.addEventListener("click", () => {
+    // Сначала сбрасываем все элементы к обычному состоянию
+    angleIcons.forEach((item) => {
+      item.style.scale = 1;
+      item.style.backgroundColor = "transparent";
+      item.style.margin = "0 20px";
+    });
+
+    // Если есть следующий элемент
+    if (index < angleIcons.length - 1) {
+      const nextEl = angleIcons[index + 1];
+
+      // Следующий элемент становится активным
+      nextEl.style.scale = 1.5;
+      nextEl.style.backgroundColor = "#06fa0e";
+      nextEl.style.margin = "0 50px";
+    }
+  });
+});
